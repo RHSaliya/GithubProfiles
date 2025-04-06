@@ -6,4 +6,5 @@
     <string name="total_followers_count">Total followers %1$d</string>
     <string name="total_following_count">Total following %1$d</string>
     <string name="found_user_count">Found %1$d users</string>
+    <string name="loaded_user_count">Loaded %1$d</string>
 </resources>

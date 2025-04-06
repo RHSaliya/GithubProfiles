@@ -30,7 +30,7 @@ class GitHubViewModel : ViewModel() {
     val searchResults = MutableLiveData<List<UserResponse>?>()
     val userCount = MutableLiveData<Int>()
 
-    private var currentPage = 1
+    private var searchCurrentPage = 1
 
     /**
      * Fetches the user profile for a given username.
@@ -149,6 +149,7 @@ class GitHubViewModel : ViewModel() {
     fun searchUsers(
         context: Context,
         query: String,
+        itemsPerPage: Int = 30,
         isNextPage: Boolean = false,
         forceNetwork: Boolean = false
     ) {
@@ -163,7 +164,7 @@ class GitHubViewModel : ViewModel() {
 
             val isCacheValid = cachedQuery != null &&
                     System.currentTimeMillis() - cachedQuery.lastUpdated < CACHE_TIMEOUT &&
-                    !forceNetwork
+                    !forceNetwork && !isNextPage
 
             if (!NetworkUtil.isConnected(context) || (isCacheValid && !cachedUsers.isNullOrEmpty())) {
                 searchResults.postValue(cachedUsers)
@@ -171,7 +172,7 @@ class GitHubViewModel : ViewModel() {
                 return@launch
             }
 
-            val response = repo.searchUsers(query, currentPage)
+            val response = repo.searchUsers(query, searchCurrentPage, itemsPerPage)
             if (response.isSuccessful) {
                 val users = response.body()?.users.orEmpty()
                 val total = response.body()?.totalCount ?: 0
@@ -184,15 +185,9 @@ class GitHubViewModel : ViewModel() {
                 }
 
                 userCount.postValue(total)
+                searchResults.postValue(users)
 
-                val updatedList = if (isNextPage) {
-                    searchResults.value.orEmpty() + users
-                } else {
-                    users
-                }
-
-                searchResults.postValue(updatedList)
-                currentPage++
+                searchCurrentPage++
             } else {
                 searchResults.postValue(null)
             }

@@ -39,5 +39,5 @@ class GitHubRepository {
      * @param page the page number
      * @return the search response
      */
-    suspend fun searchUsers(query: String, page: Int) = api.searchUsers(query, page)
+    suspend fun searchUsers(query: String, page: Int, perPage: Int) = api.searchUsers(query, page)
 }

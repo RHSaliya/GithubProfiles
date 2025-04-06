@@ -30,6 +30,7 @@
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="12dp"
             android:hint="Search"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:maxLines="1" />
 
@@ -48,14 +49,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/tilSearch" />
 
-    <TextView
-        android:id="@+id/tvCount"
+    <LinearLayout
+        android:id="@+id/llCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="4dp"
-        app:layout_constraintTop_toBottomOf="@id/tilSearch" />
+        app:layout_constraintTop_toBottomOf="@id/tilSearch" >
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="4dp"/>
+        <TextView
+            android:id="@+id/tvLoadedCount"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textAlignment="textEnd"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="4dp" />
+    </LinearLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
@@ -64,7 +80,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvCount">
+        app:layout_constraintTop_toBottomOf="@id/llCount">
 
         <FrameLayout
             android:layout_width="match_parent"

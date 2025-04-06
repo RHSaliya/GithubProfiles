@@ -28,7 +28,11 @@ interface GitHubApi {
      * @return the user profile list
      */
     @GET("users/{username}/followers")
-    suspend fun getFollowers(@Path("username") username: String): Response<List<UserResponse>>
+    suspend fun getFollowers(
+        @Path("username") username: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 30
+    ): Response<List<UserResponse>>
 
     /**
      * Get the user profile for a given username.
@@ -37,7 +41,11 @@ interface GitHubApi {
      * @return the user profile list
      */
     @GET("users/{username}/following")
-    suspend fun getFollowing(@Path("username") username: String): Response<List<UserResponse>>
+    suspend fun getFollowing(
+        @Path("username") username: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") perPage: Int = 30
+    ): Response<List<UserResponse>>
 
     /**
      * Get the user profile for a given username.

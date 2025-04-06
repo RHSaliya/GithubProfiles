@@ -11,6 +11,7 @@ import androidx.core.content.IntentCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.bumptech.glide.Glide
 import com.rhs.githubprofiles.R
 import com.rhs.githubprofiles.data.model.UserResponse
 import com.rhs.githubprofiles.databinding.ActivityAssociationsBinding
@@ -45,11 +46,24 @@ class AssociationsActivity : AppCompatActivity(R.layout.activity_associations) {
 
         userInfo = IntentCompat.getSerializableExtra(intent, EXTRA_USER, UserResponse::class.java) ?: return
 
+        loadUserInfo()
+
         setupToggleButtons()
         fetchUserAssociations()
         setupRecyclerViews()
 
         observeUserClickEvents()
+    }
+
+    private fun loadUserInfo() {
+        binding.tvName.text = userInfo?.name ?: userInfo?.login
+        binding.tvUserName.text = userInfo?.login
+
+        Glide.with(this)
+            .load(userInfo?.avatarUrl)
+            .placeholder(R.drawable.ic_person)
+            .error(R.drawable.ic_person)
+            .into(binding.imageAvatar)
     }
 
     /**
