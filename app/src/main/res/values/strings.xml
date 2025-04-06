@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Github Profiles</string>
+    <string name="no_bio">No Bio</string>
+    <string name="followers_count">Followers: %d</string>
+    <string name="following_count">Following: %d</string>
+    <string name="total_followers_count">Total followers %1$d</string>
+    <string name="total_following_count">Total following %1$d</string>
+    <string name="found_user_count">Found %1$d users</string>
+</resources>
