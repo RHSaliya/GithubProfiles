@@ -44,10 +44,6 @@ class HomeActivity : AppCompatActivity(R.layout.activity_home) {
         setupRecyclerView()
         setupSearch()
         setupSwipeRefresh()
-
-        // Set up the toolbar
-        binding.etSearch.setText("RHSaliya")
-        binding.mbSearch.performClick()
     }
 
     /**
